@@ -1,0 +1,60 @@
+---
+import { siteConfig } from '../config';
+const { compact = false, title = 'ব্যক্তিগত সহায়তার জন্য তথ্য দিন', kind = 'general' } = Astro.props;
+const id = `wa-form-${kind}-${Math.random().toString(36).slice(2, 7)}`;
+---
+<div class="card" style="padding:clamp(1.3rem,4vw,2.2rem)">
+  <h2 style="font-size:clamp(1.75rem,4vw,2.6rem)">{title}</h2>
+  <p class="muted">কোনো account বা document upload প্রয়োজন নেই। Submit করলে WhatsApp-এ message তৈরি হবে।</p>
+  <form id={id} class="whatsapp-form" data-number={siteConfig.whatsappNumber} novalidate>
+    {kind === 'cv' ? (
+      <div class="form-grid">
+        <div><label for={`${id}-name`}>Full name *</label><input id={`${id}-name`} name="নাম" required autocomplete="name" /><p class="field-error"></p></div>
+        <div><label for={`${id}-education`}>Current education level *</label><input id={`${id}-education`} name="বর্তমান শিক্ষাগত যোগ্যতা" required /><p class="field-error"></p></div>
+        <div><label for={`${id}-purpose`}>Target purpose *</label><select id={`${id}-purpose`} name="Target purpose" required><option value="">নির্বাচন করুন</option><option>University application</option><option>Scholarship application</option><option>Internship / Job</option></select><p class="field-error"></p></div>
+        <div><label for={`${id}-country`}>Target country *</label><input id={`${id}-country`} name="Target country" required /><p class="field-error"></p></div>
+        <div><label for={`${id}-existing`}>Existing CV available? *</label><select id={`${id}-existing`} name="Existing CV" required><option value="">নির্বাচন করুন</option><option>Yes</option><option>No</option></select><p class="field-error"></p></div>
+        <div><label for={`${id}-deadline`}>Required deadline *</label><input id={`${id}-deadline`} name="Required deadline" type="date" required /><p class="field-error"></p></div>
+        <div class="full"><label for={`${id}-info`}>Additional information</label><textarea id={`${id}-info`} name="অতিরিক্ত তথ্য"></textarea></div>
+      </div>
+    ) : (
+      <div class="form-grid">
+        <div><label for={`${id}-name`}>Full name *</label><input id={`${id}-name`} name="নাম" required autocomplete="name" /><p class="field-error"></p></div>
+        <div><label for={`${id}-phone`}>WhatsApp number *</label><input id={`${id}-phone`} name="WhatsApp নম্বর" type="tel" required autocomplete="tel" /><p class="field-error"></p></div>
+        <div><label for={`${id}-education`}>Current education level *</label><select id={`${id}-education`} name="বর্তমান শিক্ষাগত যোগ্যতা" required><option value="">নির্বাচন করুন</option><option>HSC / A Level</option><option>Bachelor’s running</option><option>Bachelor’s completed</option><option>Master’s completed</option><option>Other</option></select><p class="field-error"></p></div>
+        <div><label for={`${id}-result`}>Latest academic result *</label><input id={`${id}-result`} name="Result" required placeholder="যেমন: GPA 4.75 / CGPA 3.42" /><p class="field-error"></p></div>
+        {!compact && <><div><label for={`${id}-year`}>Passing year *</label><input id={`${id}-year`} name="Passing Year" inputmode="numeric" required /><p class="field-error"></p></div><div><label for={`${id}-degree`}>Target degree *</label><select id={`${id}-degree`} name="Target Degree" required><option value="">নির্বাচন করুন</option><option>Bachelor’s</option><option>Master’s</option><option>PhD</option><option>Other</option></select><p class="field-error"></p></div></>}
+        <div><label for={`${id}-country`}>Preferred country *</label><input id={`${id}-country`} name="Target Country" required placeholder="যেমন: Italy, USA" /><p class="field-error"></p></div>
+        <div><label for={`${id}-ielts`}>IELTS / English-test status *</label><select id={`${id}-ielts`} name="IELTS Status" required><option value="">নির্বাচন করুন</option><option>Not started</option><option>Preparing</option><option>Test booked</option><option>Score available</option><option>Waiver জানতে চাই</option></select><p class="field-error"></p></div>
+        {!compact && <div><label for={`${id}-budget`}>Approximate budget *</label><input id={`${id}-budget`} name="Budget" required placeholder="BDT-তে আনুমানিক" /><p class="field-error"></p></div>}
+        <div><label for={`${id}-support`}>Required support *</label><select id={`${id}-support`} name="প্রয়োজনীয় সহায়তা" required><option value="">নির্বাচন করুন</option><option>Profile Assessment</option><option>Country Selection</option><option>University Shortlisting</option><option>Scholarship Guidance</option><option>CV Preparation</option><option>SOP Review</option><option>LOR Guidance</option><option>Full Application Support</option><option>Document Review</option><option>Visa Preparation Guidance</option><option>Other</option></select><p class="field-error"></p></div>
+        <div class="full"><label for={`${id}-message`}>Short message</label><textarea id={`${id}-message`} name="অতিরিক্ত তথ্য" placeholder="আপনার প্রশ্ন বা profile সম্পর্কে সংক্ষেপে লিখুন"></textarea></div>
+      </div>
+    )}
+    <p class="privacy-note full">Submit করার পর আপনার দেওয়া তথ্য একটি pre-filled WhatsApp message হিসেবে তৈরি হবে। Message পাঠানোর আগে আপনি তথ্যগুলো যাচাই ও পরিবর্তন করতে পারবেন।</p>
+    <button class="button button-primary" type="submit">WhatsApp message তৈরি করুন</button>
+    <p class="form-status" role="status" aria-live="polite"></p>
+  </form>
+</div>
+<script is:inline>
+  document.querySelectorAll('.whatsapp-form').forEach((form) => {
+    if (form.dataset.ready) return;
+    form.dataset.ready = 'true';
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      let valid = true;
+      form.querySelectorAll('[required]').forEach((field) => {
+        const error = field.parentElement.querySelector('.field-error');
+        if (!field.value.trim()) { valid = false; field.setAttribute('aria-invalid', 'true'); if (error) error.textContent = 'এই তথ্যটি প্রয়োজন।'; }
+        else { field.removeAttribute('aria-invalid'); if (error) error.textContent = ''; }
+      });
+      const status = form.querySelector('.form-status');
+      if (!valid) { status.textContent = 'প্রয়োজনীয় ঘরগুলো পূরণ করুন।'; form.querySelector('[aria-invalid="true"]')?.focus(); return; }
+      const data = new FormData(form);
+      const lines = ['Assalamu Alaikum, আমি Uddesho Abroad website থেকে যোগাযোগ করছি।', ''];
+      for (const [key, value] of data.entries()) if (String(value).trim()) lines.push(`${key}: ${String(value).trim()}`);
+      status.textContent = 'WhatsApp খোলা হচ্ছে…';
+      window.open(`https://wa.me/${form.dataset.number}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener,noreferrer');
+    });
+  });
+</script>

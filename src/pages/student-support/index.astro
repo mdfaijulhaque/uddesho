@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import WhatsAppForm from '../../components/WhatsAppForm.astro';
+import Icon from '../../components/Icon.astro';
+const services = ['Profile Assessment','University and Program Shortlisting','Scholarship Shortlisting','CV Preparation','CV Review','SOP Guidance','SOP Review','LOR Guidance','Application Document Review','University Application Support','Financial Document Organization','Visa Document Checklist','Mock Interview','Pre-departure Guidance'];
+---
+<BaseLayout title="Student Support" description="Profile assessment, shortlisting, CV, SOP, LOR, document review ও visa-file organization-এর personalized student support।">
+  <header class="page-hero"><div class="container"><Breadcrumbs items={[{label:'Student Support'}]} /><p class="eyebrow">Personalized guidance</p><h1>তথ্য পড়ার পরও সাহায্য প্রয়োজন হলে</h1><p class="lead">আপনার profile, target এবং budget বুঝে নির্দিষ্ট support নিয়ে আলোচনা করুন। কোনো admission, scholarship বা visa guarantee দেওয়া হয় না।</p></div></header>
+  <section class="section"><div class="container"><div class="section-heading"><div><h2>Support areas</h2><p>Fixed price প্রকাশ করা হয়নি। Scope বোঝার পর available support পরিষ্কারভাবে জানানো হয়।</p></div><a class="button button-outline" href="/student-support/cv/">CV Support <Icon /></a></div><div class="grid grid-3">{services.map((service,index) => <article class="card"><span class="category-number">{String(index+1).padStart(2,'0')}</span><h3>{service}</h3><p class="muted">আপনার existing preparation review করে next action ও document organization বুঝতে সহায়তা।</p></article>)}</div></div></section>
+  <section class="section" style="background:var(--muted)"><div class="container"><WhatsAppForm /></div></section>
+  <section class="section-sm"><div class="container"><p class="notice"><strong>আমরা যা বলি না:</strong> 100% visa guarantee, confirmed scholarship, guaranteed admission, embassy connection বা guaranteed success। Final decision সংশ্লিষ্ট authority-এর।</p></div></section>
+</BaseLayout>

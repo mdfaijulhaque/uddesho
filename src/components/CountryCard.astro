@@ -1,0 +1,12 @@
+---
+import Icon from './Icon.astro';
+const { country } = Astro.props;
+---
+<article class="card country-card">
+  <div class="country-flag" aria-hidden="true">{country.flag}</div>
+  <p class="eyebrow">{country.name}</p>
+  <h3>{country.nameBn}</h3>
+  <p class="muted">{country.summary}</p>
+  <ul><li>{country.degreeLevels.join(' · ')}</li><li>{country.scholarships.slice(0, 2).join(' · ')}</li><li>{country.intakes[0]}</li></ul>
+  <a class="button button-outline" href={`/study-destinations/${country.slug}/`}>বিস্তারিত জানুন <Icon /></a>
+</article>

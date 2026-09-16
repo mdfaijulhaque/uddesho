@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Icon from '../../components/Icon.astro';
+import guides from '../../content/guides/guides.json';
+const categories = [...new Set(guides.map((guide) => guide.category))];
+---
+<BaseLayout title="Application Guides" description="Documents, SOP, LOR, CV, English tests, finance, visa interview ও pre-departure-এর practical Bangla guides।">
+  <header class="page-hero"><div class="container"><Breadcrumbs items={[{label:'Application Guides'}]} /><p class="eyebrow">Practical explainers</p><h1>Application-এর প্রতিটি ধাপ, সহজ বাংলায়</h1><p class="lead">Checklist, common mistakes ও action steps দিয়ে সাজানো—যাতে নিজে প্রস্তুতি শুরু করতে পারেন।</p></div></header>
+  <section class="section"><div class="container"><div class="filters" style="grid-template-columns:2fr 1fr"><div><label for="guide-search">Guide খুঁজুন</label><input type="search" id="guide-search" placeholder="SOP, passport, bank statement..." /></div><div><label for="guide-category">Category</label><select id="guide-category"><option value="">সব category</option>{categories.map((category) => <option>{category}</option>)}</select></div></div><div id="guide-grid" class="grid grid-3">{guides.map((guide) => <article class="card guide-card" data-category={guide.category.toLowerCase()} data-search={`${guide.title} ${guide.summary}`.toLowerCase()}><span class="tag">{guide.category}</span><h3 style="margin-top:.8rem">{guide.title}</h3><p class="muted">{guide.summary}</p><a class="button button-soft" href={`/guides/${guide.slug}/`}>Guide পড়ুন <Icon /></a></article>)}</div><div id="guide-empty" class="empty-state">কোনো guide পাওয়া যায়নি। অন্য keyword চেষ্টা করুন।</div></div></section>
+  <script is:inline>
+    const search = document.getElementById('guide-search'), category = document.getElementById('guide-category'), cards = [...document.querySelectorAll('.guide-card')], empty = document.getElementById('guide-empty');
+    const filter = () => { let count = 0; cards.forEach((card) => { const show = (!search.value || card.dataset.search.includes(search.value.toLowerCase())) && (!category.value || card.dataset.category === category.value.toLowerCase()); card.hidden = !show; if(show) count++; }); empty.style.display = count ? 'none' : 'block'; }; search.addEventListener('input', filter); category.addEventListener('change', filter);
+  </script>
+</BaseLayout>

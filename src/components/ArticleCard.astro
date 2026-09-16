@@ -1,0 +1,10 @@
+---
+import Icon from './Icon.astro';
+const { article } = Astro.props;
+const formatDate = (date) => new Intl.DateTimeFormat('bn-BD', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(date));
+---
+<article class="card" data-search={`${article.title} ${article.category} ${article.summary}`.toLowerCase()}>
+  <span class="tag">{article.category}</span><h3 style="margin-top:.8rem">{article.title}</h3><p class="muted">{article.summary}</p>
+  <small class="muted">প্রকাশ: {formatDate(article.published)} · আপডেট: {formatDate(article.updated)}</small><br />
+  <a class="button button-soft" href={`/articles/${article.slug}/`} style="margin-top:1rem">আরও পড়ুন <Icon /></a>
+</article>

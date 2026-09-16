@@ -1,0 +1,7 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import articles from '../../content/articles/articles.json';
+---
+<BaseLayout title="Latest Guides and Updates"><header class="page-hero"><div class="container"><Breadcrumbs items={[{label:'Articles'}]} /><p class="eyebrow">Latest guides & updates</p><h1>তথ্য যাচাই করে প্রস্তুতি নিন</h1><p class="lead">Country guide, application explainers এবং scholarship verification notes।</p></div></header><section class="section"><div class="container"><div class="grid grid-3">{articles.map((article) => <ArticleCard article={article} />)}</div></div></section></BaseLayout>

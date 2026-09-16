@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import WhatsAppForm from '../../components/WhatsAppForm.astro';
+import Icon from '../../components/Icon.astro';
+import countries from '../../content/countries/countries.json';
+import { siteConfig } from '../../config';
+export function getStaticPaths() { return countries.map((country) => ({ params: { slug: country.slug }, props: { country } })); }
+const { country } = Astro.props;
+const sections = [['overview','Country overview'],['intakes','Intake & timeline'],['requirements','Admission requirements'],['documents','Required documents'],['cost','Tuition & living cost'],['scholarships','Scholarships'],['process','Application process'],['visa','Visa overview'],['mistakes','Common mistakes'],['faq','FAQ'],['support','Personalized support']];
+const schema = { '@context':'https://schema.org', '@type':'Article', headline:country.nameBn, description:country.summary, inLanguage:'bn', author:{'@type':'Organization',name:'Uddesho Abroad'}, mainEntityOfPage:`${siteConfig.siteUrl}/study-destinations/${country.slug}/` };
+---
+<BaseLayout title={country.nameBn} description={country.summary} schema={schema} type="article">
+  <header class="page-hero"><div class="container"><Breadcrumbs items={[{label:'Study Destinations',href:'/study-destinations/'},{label:country.nameBn}]} /><p class="eyebrow">{country.name}</p><h1><span aria-hidden="true">{country.flag}</span> {country.nameBn}</h1><p class="lead">{country.summary}</p><div class="button-row">{country.degreeLevels.map((level) => <span class="tag">{level}</span>)}</div></div></header>
+  <section class="section"><div class="container content-shell"><article>
+    <section id="overview" class="content-section"><h2>Country overview</h2><p>{country.education}</p><h3>কেন পড়বেন</h3><ul class="clean-list">{country.why.map((item) => <li>{item}</li>)}</ul><h3>English-taught programs</h3><p>{country.englishPrograms}</p><h3>সীমাবদ্ধতা ও challenge</h3><ul class="clean-list">{country.challenges.map((item) => <li>{item}</li>)}</ul></section>
+    <section id="intakes" class="content-section"><h2>Intake information</h2><div class="grid grid-2"><div><h3>Major intakes</h3><ul class="clean-list">{country.intakes.map((item) => <li>{item}</li>)}</ul></div><div><h3>Recommended timeline</h3><ul class="clean-list">{country.timeline.map((item) => <li>{item}</li>)}</ul></div></div><p class="notice">Exact date university, programme এবং year অনুযায়ী পরিবর্তিত হয়। Application শুরুর আগে official page-এর current deadline যাচাই করুন।</p></section>
+    <section id="requirements" class="content-section"><h2>Admission requirements</h2><ul class="clean-list">{country.requirements.map((item) => <li>{item}</li>)}</ul></section>
+    <section id="documents" class="content-section"><h2>Required documents</h2><ul class="clean-list">{country.documents.map((item) => <li>{item}</li>)}</ul></section>
+    <section id="cost" class="content-section"><h2>Tuition fee & living cost</h2><ul class="clean-list">{country.cost.map((item) => <li>{item}</li>)}</ul><p class="notice"><strong>খরচ বিশ্ববিদ্যালয়, শহর, program এবং জীবনযাত্রার ধরন অনুযায়ী পরিবর্তিত হতে পারে।</strong></p></section>
+    <section id="scholarships" class="content-section"><h2>Scholarship opportunities</h2><ul class="clean-list">{country.scholarships.map((item) => <li>{item}</li>)}</ul><p>Funding-এর eligibility, coverage এবং deadline official scholarship বা university page থেকে যাচাই করুন। কোনো scholarship নিশ্চিত নয়।</p><a class="button button-outline" href={`/scholarships/?country=${encodeURIComponent(country.slug === 'usa' ? 'USA' : country.name.replace('Study in ',''))}`}>Relevant scholarships <Icon /></a></section>
+    <section id="process" class="content-section"><h2>Application process</h2><ol>{country.application.map((item) => <li style="margin-bottom:.65rem">{item}</li>)}</ol></section>
+    <section id="visa" class="content-section"><h2>Visa overview</h2><p>{country.visa}</p><p class="notice">এটি general preparation overview—visa advice বা guarantee নয়। সংশ্লিষ্ট embassy/consulate-এর current instruction অনুসরণ করুন।</p></section>
+    <section id="mistakes" class="content-section"><h2>Bangladeshi applicants-এর common mistakes</h2><ul class="clean-list">{country.mistakes.map((item) => <li>{item}</li>)}</ul></section>
+    <section id="faq" class="content-section faq"><h2>Frequently asked questions</h2>{country.faqs.map(([question, answer]) => <details><summary>{question}</summary><p>{answer}</p></details>)}</section>
+    {country.communityUrl && <section class="content-section"><div class="cta-panel"><h2>Relevant community</h2><p>Applicant discussion ও update-এর জন্য Uddesho Abroad community-তে যুক্ত হন। Official source verification সবসময় আলাদাভাবে করুন।</p><a class="button button-secondary" href={country.communityUrl} target="_blank" rel="noopener noreferrer">{country.communityLabel} <Icon /></a></div></section>}
+    <section id="support" class="content-section"><WhatsAppForm title={`${country.nameBn} বিষয়ে personalized support`} /></section>
+  </article><aside class="toc"><strong>এই page-এ</strong>{sections.map(([id,label]) => <a href={`#${id}`}>{label}</a>)}</aside></div></section>
+</BaseLayout>

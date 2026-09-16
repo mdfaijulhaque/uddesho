@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CountryCard from '../../components/CountryCard.astro';
+import countries from '../../content/countries/countries.json';
+---
+<BaseLayout title="Study Destinations" description="USA, Italy ও Russia-তে উচ্চশিক্ষার admission, scholarship, cost, documents ও visa overview বাংলায় জানুন।">
+  <header class="page-hero"><div class="container"><Breadcrumbs items={[{label:'Study Destinations'}]} /><p class="eyebrow">Country-wise information</p><h1>আপনার study destination বুঝে বেছে নিন</h1><p class="lead">শুধু জনপ্রিয়তা নয়—academic fit, budget, language, scholarship এবং long-term goal একসঙ্গে বিবেচনা করুন।</p></div></header>
+  <section class="section"><div class="container"><div class="grid grid-3">{countries.map((country) => <CountryCard country={country} />)}</div><div class="notice" style="margin-top:4rem">নতুন country guide যোগ করার জন্য <code>src/content/countries/countries.json</code>-এ নতুন entry দিন। Dynamic route একই design ব্যবহার করবে।</div></div></section>
+</BaseLayout>

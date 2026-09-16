@@ -1,0 +1,33 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import { siteConfig } from '../config';
+const { title = siteConfig.title, description = siteConfig.description, image = '/images/uddesho-abroad-logo.png', type = 'website', schema } = Astro.props;
+const canonical = new URL(Astro.url.pathname, siteConfig.siteUrl);
+const pageTitle = title.includes('Uddesho') ? title : `${title} | Uddesho Abroad`;
+const defaultSchema = { '@context': 'https://schema.org', '@type': 'Organization', name: siteConfig.name, url: siteConfig.siteUrl, logo: `${siteConfig.siteUrl}/images/uddesho-abroad-logo.png`, contactPoint: { '@type': 'ContactPoint', telephone: siteConfig.whatsappDisplay, contactType: 'student support' } };
+---
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/webp" href="/images/uddesho-abroad-logo.webp" />
+    <meta property="og:type" content={type} /><meta property="og:title" content={pageTitle} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:image" content={new URL(image, siteConfig.siteUrl)} /><meta property="og:locale" content="bn_BD" />
+    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={pageTitle} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={new URL(image, siteConfig.siteUrl)} />
+    <script type="application/ld+json" set:html={JSON.stringify(schema || defaultSchema)}></script>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">মূল কনটেন্টে যান</a>
+    <Header />
+    <main id="main-content"><slot /></main>
+    <Footer />
+    <WhatsAppFloat />
+  </body>
+</html>

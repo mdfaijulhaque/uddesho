@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import WhatsAppForm from '../../components/WhatsAppForm.astro';
+import scholarships from '../../content/scholarships/scholarships.json';
+export function getStaticPaths() { return scholarships.map((scholarship) => ({ params:{slug:scholarship.slug}, props:{scholarship} })); }
+const { scholarship } = Astro.props;
+const placeholder = 'Verified details এখনো যোগ করা হয়নি। Current official guideline থেকে যাচাই করে update করুন।';
+const commonDocuments = ['Online application form','Passport/identity document','Academic certificates ও transcripts','CV/Resume','Motivation Letter/Study Plan, যেখানে প্রযোজ্য','Recommendation letters, যেখানে প্রযোজ্য','Language test result, যদি required হয়','Programme-specific supporting documents'];
+const schema = {'@context':'https://schema.org','@type':'Article',headline:scholarship.name,description:scholarship.summary,inLanguage:'bn',author:{'@type':'Organization',name:'Uddesho Abroad'}};
+---
+<BaseLayout title={scholarship.name} description={scholarship.summary} schema={schema} type="article">
+  <header class="page-hero"><div class="container"><Breadcrumbs items={[{label:'Scholarships',href:'/scholarships/'},{label:scholarship.name}]} /><p class="eyebrow">{scholarship.country} · {scholarship.type}</p><h1>{scholarship.name}</h1><p class="lead">{scholarship.summary}</p><div class="button-row">{scholarship.levels.map((level) => <span class="tag">{level}</span>)}<span class="tag tag-warn">{scholarship.status}</span></div></div></header>
+  <section class="section"><div class="container content-shell"><article>
+    <p class="notice"><strong>Deadline, eligibility এবং scholarship benefits প্রতি বছর পরিবর্তিত হতে পারে। আবেদন করার আগে অবশ্যই official source যাচাই করুন।</strong></p>
+    <section class="content-section"><h2>Scholarship summary</h2><table class="info-table"><tbody><tr><th>Host country</th><td>{scholarship.country}</td></tr><tr><th>Funding type</th><td>{scholarship.funding}</td></tr><tr><th>Degree level</th><td>{scholarship.levels.join(', ')}</td></tr><tr><th>Current status</th><td>{scholarship.status}</td></tr><tr><th>Last verified</th><td>{scholarship.verified}</td></tr><tr><th>Approximate period</th><td>{scholarship.period}</td></tr></tbody></table></section>
+    <section class="content-section"><h2>Eligibility & academic requirements</h2><p>{placeholder}</p><ul class="clean-list"><li>Eligible country/nationality current call থেকে দেখুন</li><li>Minimum qualification ও result criteria official guideline থেকে নিন</li><li>Programme-specific subject prerequisite যাচাই করুন</li></ul></section>
+    <section class="content-section"><h2>Age & English-language requirements</h2><p>Age restriction officially applicable হলে annual guideline-এ নির্দিষ্ট cut-off date দেওয়া থাকে। অনুমানভিত্তিক age limit ব্যবহার করবেন না। English test, medium certificate বা waiver policy track/programme অনুযায়ী যাচাই করুন।</p></section>
+    <section class="content-section"><h2>Scholarship benefits</h2><p>{scholarship.funding}. Tuition, stipend, travel, insurance, accommodation বা অন্য benefit আছে কিনা এবং কী শর্তে আছে—award terms থেকে item-by-item যাচাই করুন।</p></section>
+    <section class="content-section"><h2>Required documents</h2><ul class="clean-list">{commonDocuments.map((item) => <li>{item}</li>)}</ul><p class="notice">এটি planning checklist, final checklist নয়। Official call-এর document list প্রাধান্য পাবে।</p></section>
+    <section class="content-section"><h2>Application process</h2><ol><li>Official source ও current call খুলুন</li><li>Eligibility, track ও host programme বাছাই করুন</li><li>Deadline এবং timezone note করুন</li><li>Required evidence ও writing documents প্রস্তুত করুন</li><li>Official portal/embassy/university route দিয়ে submit করুন</li><li>Confirmation ও submitted copy সংরক্ষণ করুন</li></ol></section>
+    <section class="content-section"><h2>Selection process</h2><p>Document screening, nomination, interview, exam, portfolio বা host-university review থাকতে পারে। এই scholarship-এর current selection stages official guideline থেকে verify করতে হবে।</p></section>
+    <section class="content-section"><h2>Official source</h2><p>সর্বশেষ eligibility, deadline, benefit ও result update-এর জন্য নিচের official website ব্যবহার করুন।</p><a class="button button-primary" href={scholarship.source} target="_blank" rel="noopener noreferrer">Official source খুলুন</a></section>
+    <section class="content-section"><h2>Important notes</h2><ul class="clean-list"><li>Unverified Facebook post বা পুরোনো blog-কে final source ধরবেন না</li><li>Application বা scholarship-এর নামে অননুমোদিত payment এড়িয়ে চলুন</li><li>Admission এবং scholarship decision আলাদা হতে পারে</li><li>Funding coverage না পড়ে “fully funded” ধরে নেবেন না</li></ul></section>
+    <section class="content-section"><h2>Related articles</h2><div class="grid grid-2"><a class="card" href="/articles/official-source-checklist/"><h3>Scholarship notice যাচাইয়ের ৭টি ধাপ</h3></a><a class="card" href="/guides/scholarship-process/"><h3>Scholarship application process</h3></a></div></section>
+    <section class="content-section"><WhatsAppForm compact={true} title={`${scholarship.name} নিয়ে guidance প্রয়োজন?`} /></section>
+  </article><aside class="toc"><strong>Quick actions</strong><a href={scholarship.source} target="_blank" rel="noopener noreferrer">Official source</a><a href="#main-content">Page শুরু</a><a href="/scholarships/">Scholarship Library</a><a href="/contact/">Contact</a></aside></div></section>
+</BaseLayout>

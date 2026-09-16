@@ -1,0 +1,21 @@
+---
+import { siteConfig } from '../config';
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/images/uddesho-abroad-logo.webp" alt="Uddesho Abroad logo" width="86" height="86" loading="lazy" />
+        <h3>UDDESHO ABROAD</h3>
+        <p>বাংলাদেশি শিক্ষার্থীদের জন্য উচ্চশিক্ষা, scholarship, application এবং student-support-এর সহজ বাংলা তথ্যভান্ডার।</p>
+        <a href={`https://wa.me/${siteConfig.whatsappNumber}`} target="_blank" rel="noopener noreferrer">WhatsApp: {siteConfig.whatsappDisplay}</a>
+        <a href={`mailto:${siteConfig.email}`}>{siteConfig.email} (placeholder)</a>
+      </div>
+      <div><h3>Study Destinations</h3><a href="/study-destinations/usa/">Study in USA</a><a href="/study-destinations/italy/">Study in Italy</a><a href="/study-destinations/russia/">Study in Russia</a><a href="/study-destinations/">সব দেশ</a></div>
+      <div><h3>Information</h3><a href="/scholarships/">Scholarship Library</a><a href="/guides/">Application Guides</a><a href="/student-support/">Student Support</a><a href="/english-with-uddesho/">English with Uddesho</a><a href="/communities/">Facebook Communities</a><a href="/rss.xml">RSS Feed</a></div>
+      <div><h3>Policies</h3><a href="/about/">About Us</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms and Conditions</a><a href="/disclaimer/">Disclaimer</a></div>
+    </div>
+    <p style="margin-top:2.5rem;color:#bcd1cf;font-size:.88rem">Uddesho Abroad is an independent study-abroad information and student-support platform. We are not an embassy, government authority or university. Admission, scholarship and visa decisions are made solely by the relevant authorities.</p>
+    <div class="footer-bottom"><span>© {new Date().getFullYear()} UDDESHO ABROAD. All rights reserved.</span><span>Independent information & student-support platform.</span></div>
+  </div>
+</footer>

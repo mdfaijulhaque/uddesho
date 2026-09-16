@@ -1,0 +1,11 @@
+---
+import Icon from './Icon.astro';
+const { scholarship } = Astro.props;
+---
+<article class="card scholarship-card" data-country={scholarship.country} data-levels={scholarship.levels.join(',')} data-funding={scholarship.funding} data-status={scholarship.status} data-search={`${scholarship.name} ${scholarship.country} ${scholarship.type}`.toLowerCase()}>
+  <p class="eyebrow">{scholarship.country}</p>
+  <h3>{scholarship.name}</h3>
+  <div class="meta">{scholarship.levels.map((level) => <span class="tag">{level}</span>)}<span class="tag tag-warn">{scholarship.type}</span></div>
+  <p class="muted">{scholarship.summary}</p>
+  <div class="card-footer"><p class="status">{scholarship.status}</p><small class="muted">Last verified: {scholarship.verified}</small><br /><a href={`/scholarships/${scholarship.slug}/`} class="button button-soft">Details <Icon /></a></div>
+</article>

@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ScholarshipCard from '../../components/ScholarshipCard.astro';
+import scholarships from '../../content/scholarships/scholarships.json';
+const countries = [...new Set(scholarships.map((item) => item.country))].sort();
+const levels = [...new Set(scholarships.flatMap((item) => item.levels))].sort();
+---
+<BaseLayout title="Scholarship Library" description="দেশ, degree level, funding type ও status অনুযায়ী study-abroad scholarship খুঁজুন এবং official source যাচাই করুন।">
+  <header class="page-hero"><div class="container"><Breadcrumbs items={[{label:'Scholarships'}]} /><p class="eyebrow">Funding information</p><h1>Professional Scholarship Library</h1><p class="lead">Filter ব্যবহার করে opportunity খুঁজুন। Deadline, benefit ও eligibility পরিবর্তনশীল—তাই প্রতিটি detail page থেকে official source খুলুন।</p></div></header>
+  <section class="section"><div class="container">
+    <div class="filters" aria-label="Scholarship filters">
+      <div><label for="scholarship-search">নাম দিয়ে খুঁজুন</label><input id="scholarship-search" type="search" placeholder="MEXT, Erasmus, Italy..." /></div>
+      <div><label for="country-filter">Country</label><select id="country-filter"><option value="">সব country</option>{countries.map((country) => <option>{country}</option>)}</select></div>
+      <div><label for="level-filter">Degree level</label><select id="level-filter"><option value="">সব level</option>{levels.map((level) => <option>{level}</option>)}</select></div>
+      <div><label for="type-filter">Funding type</label><select id="type-filter"><option value="">সব funding</option><option value="fully">Fully funded</option><option value="partial">Partially funded</option><option value="government">Government scholarship</option><option value="university">University scholarship</option></select></div>
+      <div><label for="status-filter">Current status</label><select id="status-filter"><option value="">সব status</option><option>Open</option><option>Upcoming</option><option>Closed</option><option value="verify">Verification required</option></select></div>
+    </div>
+    <p class="notice" style="margin-bottom:1.5rem">“Open”, “Upcoming” বা “Closed” status কেবল official source যাচাই করে update করুন। বর্তমানে unverified entries-তে verification label রাখা হয়েছে।</p>
+    <div id="scholarship-grid" class="grid grid-3">{scholarships.map((scholarship) => <ScholarshipCard scholarship={scholarship} />)}</div>
+    <div id="filter-empty" class="empty-state"><h3>কোনো scholarship পাওয়া যায়নি</h3><p>Filter পরিবর্তন করে আবার চেষ্টা করুন।</p></div>
+  </div></section>
+  <script is:inline>
+    const controls = ['scholarship-search','country-filter','level-filter','type-filter','status-filter'].map((id) => document.getElementById(id));
+    const cards = [...document.querySelectorAll('.scholarship-card')];
+    const params = new URLSearchParams(location.search);
+    if (params.get('country')) document.getElementById('country-filter').value = params.get('country');
+    const applyFilters = () => {
+      const [search,country,level,type,status] = controls.map((control) => control.value.toLowerCase());
+      let visible = 0;
+      cards.forEach((card) => {
+        const funding = card.dataset.funding.toLowerCase(); const cardStatus = card.dataset.status.toLowerCase();
+        const typeMatch = !type || (type === 'fully' && funding.includes('fully')) || (type === 'partial' && (funding.includes('partial') || funding.includes('varies'))) || card.dataset.search.includes(type);
+        const statusMatch = !status || (status === 'verify' ? cardStatus.includes('verify') || cardStatus.includes('check') || cardStatus.includes('search') : cardStatus.includes(status));
+        const show = (!search || card.dataset.search.includes(search)) && (!country || card.dataset.country.toLowerCase() === country) && (!level || card.dataset.levels.toLowerCase().includes(level)) && typeMatch && statusMatch;
+        card.hidden = !show; if (show) visible++;
+      });
+      document.getElementById('filter-empty').style.display = visible ? 'none' : 'block';
+    };
+    controls.forEach((control) => control.addEventListener('input', applyFilters)); applyFilters();
+  </script>
+</BaseLayout>

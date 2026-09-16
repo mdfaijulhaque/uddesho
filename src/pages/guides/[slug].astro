@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import WhatsAppForm from '../../components/WhatsAppForm.astro';
+import guides from '../../content/guides/guides.json';
+export function getStaticPaths() { return guides.map((guide) => ({params:{slug:guide.slug},props:{guide}})); }
+const { guide } = Astro.props;
+---
+<BaseLayout title={guide.title} description={guide.summary} type="article">
+  <header class="page-hero"><div class="container"><Breadcrumbs items={[{label:'Application Guides',href:'/guides/'},{label:guide.title}]} /><p class="eyebrow">{guide.category}</p><h1>{guide.title}</h1><p class="lead">{guide.summary}</p></div></header>
+  <section class="section"><div class="container content-shell"><article>
+    <section class="content-section"><h2>কেন গুরুত্বপূর্ণ</h2><p>একটি ভালো application শুধু documents জমা দেওয়া নয়; information consistency, programme relevance এবং official instruction মেনে evidence উপস্থাপন করা জরুরি। এই guide planning শুরু করতে সাহায্য করে।</p></section>
+    <section class="content-section"><h2>Step-by-step checklist</h2>{guide.sections.map((section,index) => <div class="step"><div><h3>{section}</h3><p class="muted">Official requirement-এর সঙ্গে মিলিয়ে প্রয়োজনীয় তথ্য, document বা evidence প্রস্তুত করুন। শেষ করার পর checklist-এ mark দিন।</p></div></div>)}</section>
+    <section class="content-section"><h2>Common mistakes</h2><ul class="clean-list">{guide.mistakes.map((item) => <li>{item}</li>)}</ul></section>
+    <section class="content-section"><h2>Final review</h2><ul class="clean-list"><li>নাম, date ও result সব document-এ consistent</li><li>File clear, complete ও correct format-এ</li><li>University/scholarship-এর current instruction অনুসরণ করা হয়েছে</li><li>Submission confirmation ও final copy সংরক্ষিত</li></ul><p class="notice">Country, university, scholarship ও visa authority অনুযায়ী requirement বদলায়। Final submission-এর আগে official checklist অনুসরণ করুন।</p></section>
+    <section class="content-section"><WhatsAppForm compact={true} title="এই বিষয়ে personalized support প্রয়োজন?" /></section>
+  </article><aside class="toc"><strong>Guide navigation</strong><a href="/guides/">সব guide</a><a href="/student-support/">Student Support</a><a href="/contact/">Contact</a></aside></div></section>
+</BaseLayout>

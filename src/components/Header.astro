@@ -1,0 +1,27 @@
+---
+import Icon from './Icon.astro';
+import { navItems, siteConfig } from '../config';
+const pathname = Astro.url.pathname;
+---
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="/" aria-label="Uddesho Abroad homepage">
+      <img src="/images/uddesho-abroad-logo.webp" alt="Uddesho Abroad logo" width="62" height="62" />
+      <span>UDDESHO<br />ABROAD</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="মেনু খুলুন"><Icon name="menu" /></button>
+    <nav class="nav" id="main-nav" aria-label="Main navigation">
+      {navItems.map(([label, href]) => <a href={href} aria-current={pathname === href || (href !== '/' && pathname.startsWith(href)) ? 'page' : undefined}>{label}</a>)}
+      <a href="/search/" aria-label="Website search"><Icon name="search" /></a>
+      <a class="button button-primary" href={`https://wa.me/${siteConfig.whatsappNumber}`} target="_blank" rel="noopener noreferrer"><Icon name="whatsapp" /> WhatsApp</a>
+    </nav>
+  </div>
+</header>
+<script is:inline>
+  const toggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('#main-nav');
+  toggle?.addEventListener('click', () => {
+    const open = nav?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(Boolean(open)));
+  });
+</script>

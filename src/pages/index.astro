@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CountryCard from '../components/CountryCard.astro';
+import ScholarshipCard from '../components/ScholarshipCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import Icon from '../components/Icon.astro';
+import countries from '../content/countries/countries.json';
+import scholarships from '../content/scholarships/scholarships.json';
+import articles from '../content/articles/articles.json';
+import { siteConfig } from '../config';
+const featuredSlugs = ['mext-research','erasmus-mundus','stipendium-hungaricum','turkiye-scholarships','global-korea-scholarship','daad','chevening','commonwealth','italy-regional','russian-government'];
+const featured = featuredSlugs.map((slug) => scholarships.find((item) => item.slug === slug));
+const categories = [
+  ['বিশ্ববিদ্যালয় নির্বাচন','Profile, budget, subject ও career goal ধরে balanced shortlist তৈরি করুন।','/guides/university-shortlisting/'],
+  ['স্কলারশিপ খোঁজা','Official source ও eligibility যাচাই করে funding opportunity খুঁজুন।','/scholarships/'],
+  ['আবেদন ডকুমেন্ট','Passport থেকে transcript—সব document-এর checklist।','/guides/required-documents/'],
+  ['SOP ও LOR','নিজের story ও academic evidence পরিষ্কারভাবে উপস্থাপন করুন।','/guides/sop/'],
+  ['CV প্রস্তুতি','University ও scholarship application-এর জন্য focused CV।','/student-support/cv/'],
+  ['IELTS ও English Preparation','Test, academic writing ও interview English-এর resource।','/english-with-uddesho/'],
+  ['Financial Documents','Bank statement, sponsor ও source of funds বুঝুন।','/guides/bank-statement/'],
+  ['Visa Preparation','Checklist, interview এবং file organization-এর guide।','/guides/visa-interview/'],
+  ['Pre-departure Checklist','Travel-এর আগে documents, accommodation ও arrival plan।','/guides/pre-departure/']
+];
+---
+<BaseLayout>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Bangla study-abroad information platform</p>
+        <!-- Edit homepage hero text here. -->
+        <h1>বিদেশে উচ্চশিক্ষার <em>নির্ভরযোগ্য তথ্য</em>, এক জায়গায়</h1>
+        <p class="lead">দেশ, বিশ্ববিদ্যালয়, স্কলারশিপ, প্রয়োজনীয় ডকুমেন্ট এবং আবেদন প্রক্রিয়া সম্পর্কে সহজ বাংলায় বিস্তারিত জানুন। ব্যক্তিগত সহায়তা প্রয়োজন হলে সরাসরি Uddesho Abroad-এর সঙ্গে যোগাযোগ করুন।</p>
+        <div class="button-row"><a class="button button-primary" href="/study-destinations/">দেশ ও স্কলারশিপ খুঁজুন <Icon /></a><a class="button button-secondary" href={`https://wa.me/${siteConfig.whatsappNumber}`} target="_blank" rel="noopener noreferrer"><Icon name="whatsapp" /> WhatsApp-এ কথা বলুন</a></div>
+        <div class="trust-line"><span>সহজ বাংলা</span><span>Official source priority</span><span>কোনো guarantee নয়</span></div>
+      </div>
+      <div class="globe-stage" aria-label="বিশ্বজুড়ে উচ্চশিক্ষার প্রতীকী illustration">
+        <div class="orbit"></div>
+        <div class="globe"><svg viewBox="0 0 300 300" fill="none" stroke="currentColor" stroke-width="3"><path d="M56 74c18-24 48-43 80-46l18 24-12 25 21 14 12 36-27 13-20-19-34 2-10-28-28-21ZM186 43c37 13 65 47 70 87l-30 2-16-20-29-7-10-28 15-34ZM246 160c-7 47-43 85-89 95l-8-29 15-31 32-7 18-29 32 1ZM119 258c-35-8-64-32-79-64l22-20 25 7 14 30 25 16-7 31Z"/><circle cx="150" cy="150" r="125"/><path d="M25 150h250M150 25c-43 41-43 209 0 250M150 25c43 41 43 209 0 250" opacity=".35"/></svg></div>
+        <div class="passport-note"><small>STUDENT ROUTE</small><strong>Read. Verify. Prepare.</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="destinations"><div class="container"><div class="section-heading"><div><p class="eyebrow">Popular destinations</p><h2>কোথা থেকে শুরু করবেন?</h2><p>প্রতিটি country guide-এ admission, cost, scholarship, documents এবং visa preparation একসঙ্গে সাজানো আছে।</p></div><a class="button button-outline" href="/study-destinations/">সব destination</a></div><div class="grid grid-3">{countries.map((country) => <CountryCard country={country} />)}</div></div></section>
+
+  <section class="section" style="background:var(--muted)"><div class="container"><div class="section-heading"><div><p class="eyebrow">Scholarship library</p><h2>Featured scholarships</h2><p>কোনো deadline বা benefit অনুমান করা হয়নি। প্রতিটি opportunity-এর official source যাচাই করে আবেদন করুন।</p></div><a class="button button-outline" href="/scholarships/">সব scholarship</a></div><div class="grid grid-3">{featured.map((item) => item && <ScholarshipCard scholarship={item} />)}</div></div></section>
+
+  <section class="section"><div class="container"><div class="section-heading"><div><p class="eyebrow">Information categories</p><h2>আবেদন প্রস্তুতির পুরো পথ</h2></div></div><div class="grid category-grid">{categories.map((item, index) => <a class="card category-card" href={item[2]}><span class="category-number">0{index + 1}</span><h3>{item[0]}</h3><p class="muted">{item[1]}</p></a>)}</div></div></section>
+
+  <section class="section" style="background:var(--teal-pale)"><div class="container grid grid-2" style="gap:clamp(2rem,6vw,6rem);align-items:center"><div><p class="eyebrow">How we help</p><h2>তথ্য আগে, personalized support পরে</h2><p class="lead">Uddesho Abroad প্রথমে আপনাকে নিজে বুঝে সিদ্ধান্ত নিতে সাহায্য করে। প্রয়োজন হলে concise profile information নিয়ে WhatsApp-এ আলোচনা শুরু হয়।</p></div><div class="steps"><div class="step"><div><h3>Website থেকে তথ্য পড়ুন</h3><p class="muted">Country, scholarship ও guide pages বিনামূল্যে ব্যবহার করুন।</p></div></div><div class="step"><div><h3>সংক্ষিপ্ত form পূরণ করুন</h3><p class="muted">Sensitive document upload ছাড়াই প্রয়োজনীয় profile details দিন।</p></div></div><div class="step"><div><h3>WhatsApp-এ যোগাযোগ করুন</h3><p class="muted">আপনার তথ্য pre-filled message হিসেবে খুলবে—পাঠানোর আগে edit করা যাবে।</p></div></div></div></div></section>
+
+  <section class="section"><div class="container"><div class="section-heading"><div><p class="eyebrow">Latest guides & updates</p><h2>সাম্প্রতিক লেখা</h2></div><a class="button button-outline" href="/articles/">সব লেখা</a></div><div class="grid grid-3">{articles.slice(0,6).map((article) => <ArticleCard article={article} />)}</div></div></section>
+
+  <section class="section-sm"><div class="container"><div class="section-heading"><div><p class="eyebrow">Join our communities</p><h2>প্রশ্ন করুন, update অনুসরণ করুন</h2></div></div><div class="grid grid-3"><article class="card social-card"><h3>Uddesho Abroad</h3><p class="muted">নতুন guide ও study-abroad update-এর Facebook page।</p><a class="button button-soft" href={siteConfig.socials.facebook} target="_blank" rel="noopener noreferrer">Follow Uddesho Abroad</a></article><article class="card social-card"><h3>Study Abroad Community</h3><p class="muted">বাংলাদেশি applicants-এর general community।</p><a class="button button-soft" href={siteConfig.socials.community} target="_blank" rel="noopener noreferrer">Join Community</a></article><article class="card social-card"><h3>English with Uddesho</h3><p class="muted">IELTS, spoken ও application English resources।</p><a class="button button-soft" href={siteConfig.socials.english} target="_blank" rel="noopener noreferrer">Follow English with Uddesho</a></article></div></div></section>
+
+  <section class="section"><div class="container"><div class="cta-panel"><p class="eyebrow" style="color:#fff">Student support</p><h2>নিজের Profile অনুযায়ী সহায়তা প্রয়োজন?</h2><p>আপনার শিক্ষাগত যোগ্যতা, পছন্দের দেশ এবং প্রয়োজনীয় সহায়তার ধরন জানিয়ে WhatsApp-এ যোগাযোগ করুন।</p><div class="button-row"><a class="button button-secondary" href="/student-support/">Free Initial Discussion <Icon /></a></div></div></div></section>
+</BaseLayout>

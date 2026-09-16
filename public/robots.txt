@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://thunderous-kitsune-b09a4f.netlify.app/sitemap-index.xml

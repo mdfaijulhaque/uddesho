@@ -1,0 +1,7 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'; import Breadcrumbs from '../components/Breadcrumbs.astro'; import Icon from '../components/Icon.astro'; import {siteConfig} from '../config';
+const communities=[
+['Uddesho Abroad Facebook Page','Study-abroad guides, notices ও platform update।','Follow Uddesho Abroad','https://www.facebook.com/share/19dC3qtXG2/'],
+['Uddesho Study Abroad Community','Bangladeshi applicants-এর general discussion group।','Join Uddesho Study Abroad Community','https://www.facebook.com/share/g/1b3bihAnk8/']
+];---
+<BaseLayout title="Join Our Communities"><header class="page-hero"><div class="container"><Breadcrumbs items={[{label:'Communities'}]} /><p class="eyebrow">Facebook pages & groups</p><h1>প্রশ্ন, experience ও update-এর community</h1><p class="lead">Community discussion সহায়ক—তবে admission, scholarship ও visa information সবসময় official source থেকে verify করুন।</p></div></header><section class="section"><div class="container"><div class="grid grid-3">{communities.map(([title,text,label,url])=><article class="card social-card"><div class="icon-circle"><Icon name="globe" /></div><h3>{title}</h3><p class="muted">{text}</p><a class="button button-primary" href={url} target="_blank" rel="noopener noreferrer">{label} <Icon /></a></article>)}</div></div></section></BaseLayout>
