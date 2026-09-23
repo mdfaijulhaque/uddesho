@@ -6,117 +6,243 @@
 <title>Uddesho Student Registration</title>
 
 <style>
+
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:#f5f8f7;
+background:linear-gradient(135deg,#f7fffe,#fff7ef);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
 }
 
+
 .container{
-width:420px;
-margin:50px auto;
+
+width:430px;
 background:white;
 padding:35px;
-border-radius:20px;
-box-shadow:0 10px 30px #0002;
+border-radius:25px;
+box-shadow:0 15px 40px rgba(0,0,0,.12);
+
 }
+
 
 .logo{
 text-align:center;
-color:#008c85;
 font-size:28px;
-font-weight:800;
+font-weight:900;
+color:#008c85;
+margin-bottom:10px;
 }
 
-h2{
+
+.logo span{
+color:#ff5a36;
+}
+
+
+h1{
+
 text-align:center;
 color:#123b3b;
+font-size:26px;
+
 }
 
-input{
+
+.subtitle{
+
+text-align:center;
+color:#666;
+margin-bottom:25px;
+
+}
+
+
+input,select{
+
 width:100%;
 padding:14px;
-margin:10px 0;
+margin:8px 0;
+
 border:1px solid #ddd;
-border-radius:10px;
+border-radius:12px;
+
 font-size:15px;
+
 box-sizing:border-box;
+
 }
 
+
+input:focus,select:focus{
+
+outline:none;
+border-color:#008c85;
+
+}
+
+
 button{
+
 width:100%;
 padding:15px;
 margin-top:15px;
+
 border:none;
-border-radius:12px;
-background:linear-gradient(135deg,#ff8a00,#ff4d00);
+border-radius:14px;
+
+background:linear-gradient(135deg,#ff3b30,#ff8a00);
+
 color:white;
-font-size:16px;
+
+font-size:17px;
+
 font-weight:bold;
+
 cursor:pointer;
+
+box-shadow:0 8px 20px rgba(255,70,40,.3);
+
 }
+
 
 button:hover{
+
 transform:translateY(-2px);
+
 }
+
 
 .login{
+
 text-align:center;
 margin-top:20px;
+
 }
 
-a{
+
+.login a{
+
 color:#008c85;
 font-weight:bold;
+
 }
+
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
+
 <div class="logo">
-UDDESHO
+UDD<span>ESHO</span>
 </div>
 
-<h2>Create Student Account</h2>
+
+<h1>
+Student Registration
+</h1>
+
+
+<p class="subtitle">
+Create your Uddesho student account
+</p>
 
 
 <form>
 
-<input type="text" placeholder="Full Name">
 
-<input type="email" placeholder="Email Address">
+<input 
+type="text"
+placeholder="Full Name"
+/>
 
-<input type="tel" placeholder="Phone Number">
 
-<input type="password" placeholder="Password">
+<input
+type="email"
+placeholder="Email Address"
+/>
 
-<input type="password" placeholder="Confirm Password">
+
+<input
+type="tel"
+placeholder="Phone Number"
+/>
+
+
+<input
+type="date"
+/>
+
+
+<select>
+
+<option>
+Select Education Level
+</option>
+
+<option>
+SSC
+</option>
+
+<option>
+HSC
+</option>
+
+<option>
+Bachelor
+</option>
+
+<option>
+Master
+</option>
+
+</select>
+
+
+<input
+type="password"
+placeholder="Password"
+/>
+
+
+<input
+type="password"
+placeholder="Confirm Password"
+/>
 
 
 <button>
 Create Account
 </button>
 
+
 </form>
 
 
 <div class="login">
-Already have an account?
-<a href="/auth/login">Login</a>
+
+Already have account?
+
+<a href="/auth/login">
+Login
+</a>
+
 </div>
 
 
 </div>
+
 
 </body>
+
 </html>
-
-
-
-
-
