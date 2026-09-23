@@ -6,7 +6,7 @@ export const siteConfig = {
   siteUrl: 'https://thunderous-kitsune-b09a4f.netlify.app',
   whatsappNumber: '8801946635542',
   whatsappDisplay: '+880 1946-635542',
-  email: 'hello@example.com',
+  email: 'uddesho.com@gmail.com',
   socials: {
     facebook: 'https://www.facebook.com/profile.php?id=61591757315649',
     community: 'https://www.facebook.com/share/g/1DKEVycnyE/',
@@ -22,6 +22,7 @@ export const navItems = [
   ['Scholarships', '/scholarships/'],
   ['Application Guides', '/guides/'],
   ['Student Support', '/student-support/'],
+  ['Planner', '/planner/'],
   ['English with Uddesho', '/english-with-uddesho/'],
   ['Communities', '/communities/'],
   ['About Us', '/about/'],
