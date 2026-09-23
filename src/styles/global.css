@@ -207,3 +207,24 @@ textarea { min-height: 115px; resize: vertical; }
   transform: translateY(-3px);
   background: linear-gradient(135deg, #ff0000, #c70000);
 }
+.portal-button {
+  background: linear-gradient(135deg, #008c85, #00b894);
+  color: white !important;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(0,140,133,0.25);
+  transition: all .3s ease;
+}
+
+.portal-button:hover {
+  transform: translateY(-3px);
+}
+.register-button {
+  background: linear-gradient(135deg,#ff8a00,#ff4d00);
+  color:white !important;
+  padding:12px 22px;
+  border-radius:12px;
+  font-weight:700;
+  box-shadow:0 8px 18px rgba(255,100,0,.25);
+}
