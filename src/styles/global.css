@@ -193,3 +193,17 @@ textarea { min-height: 115px; resize: vertical; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+.register-button {
+  background: linear-gradient(135deg, #ff4b4b, #ff0000);
+  color: white !important;
+  padding: 12px 25px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(255,0,0,0.25);
+  transition: 0.3s;
+}
+
+.register-button:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #ff0000, #c70000);
+}
