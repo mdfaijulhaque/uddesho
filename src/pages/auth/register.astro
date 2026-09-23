@@ -7,39 +7,44 @@
 
 <style>
 
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#f7fffe,#fff7ef);
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
+background:linear-gradient(135deg,#f8fffd,#fff7ef);
 }
 
 
 .container{
 
-width:430px;
+width:450px;
 background:white;
-padding:35px;
+padding:40px;
 border-radius:25px;
-box-shadow:0 15px 40px rgba(0,0,0,.12);
+box-shadow:0 20px 50px rgba(0,0,0,0.12);
 
 }
 
 
 .logo{
+
 text-align:center;
-font-size:28px;
-font-weight:900;
+font-size:32px;
+font-weight:800;
 color:#008c85;
-margin-bottom:10px;
+margin-bottom:5px;
+
 }
 
-
 .logo span{
-color:#ff5a36;
+color:#ff8a3d;
 }
 
 
@@ -47,7 +52,8 @@ h1{
 
 text-align:center;
 color:#123b3b;
-font-size:26px;
+font-size:28px;
+margin:10px 0;
 
 }
 
@@ -56,7 +62,7 @@ font-size:26px;
 
 text-align:center;
 color:#666;
-margin-bottom:25px;
+margin-bottom:30px;
 
 }
 
@@ -72,29 +78,32 @@ border-radius:12px;
 
 font-size:15px;
 
-box-sizing:border-box;
+transition:.3s;
 
 }
 
 
-input:focus,select:focus{
+input:focus,
+select:focus{
 
 outline:none;
 border-color:#008c85;
+box-shadow:0 0 8px rgba(0,140,133,.25);
 
 }
+
 
 
 button{
 
 width:100%;
 padding:15px;
-margin-top:15px;
+margin-top:20px;
 
 border:none;
 border-radius:14px;
 
-background:linear-gradient(135deg,#ff3b30,#ff8a00);
+background:linear-gradient(135deg,#ff8a3d,#ff5733);
 
 color:white;
 
@@ -104,22 +113,25 @@ font-weight:bold;
 
 cursor:pointer;
 
-box-shadow:0 8px 20px rgba(255,70,40,.3);
+transition:.3s;
 
 }
 
 
 button:hover{
 
-transform:translateY(-2px);
+transform:translateY(-3px);
+
+box-shadow:0 10px 25px rgba(255,100,50,.35);
 
 }
+
 
 
 .login{
 
 text-align:center;
-margin-top:20px;
+margin-top:25px;
 
 }
 
@@ -128,6 +140,7 @@ margin-top:20px;
 
 color:#008c85;
 font-weight:bold;
+text-decoration:none;
 
 }
 
@@ -144,7 +157,7 @@ font-weight:bold;
 
 
 <div class="logo">
-UDD<span>ESHO</span>
+UDDESHO <span>ABROAD</span>
 </div>
 
 
@@ -158,6 +171,7 @@ Create your Uddesho student account
 </p>
 
 
+
 <form>
 
 
@@ -167,10 +181,12 @@ placeholder="Full Name"
 />
 
 
+
 <input
 type="email"
 placeholder="Email Address"
 />
+
 
 
 <input
@@ -179,34 +195,42 @@ placeholder="Phone Number"
 />
 
 
+
 <input
 type="date"
 />
 
 
+
 <select>
 
-<option>
-Select Education Level
-</option>
+<option>Select Gender</option>
 
-<option>
-SSC
-</option>
+<option>Male</option>
 
-<option>
-HSC
-</option>
+<option>Female</option>
 
-<option>
-Bachelor
-</option>
-
-<option>
-Master
-</option>
+<option>Other</option>
 
 </select>
+
+
+
+<select>
+
+<option>Select Education Level</option>
+
+<option>SSC</option>
+
+<option>HSC</option>
+
+<option>Bachelor</option>
+
+<option>Master</option>
+
+</select>
+
+
 
 
 <input
@@ -215,29 +239,39 @@ placeholder="Password"
 />
 
 
+
 <input
 type="password"
 placeholder="Confirm Password"
 />
 
 
+
 <button>
+
 Create Account
+
 </button>
+
 
 
 </form>
 
 
+
 <div class="login">
 
-Already have account?
+Already have an account?
 
 <a href="/auth/login">
+
 Login
+
 </a>
 
+
 </div>
+
 
 
 </div>
